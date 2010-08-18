@@ -59,7 +59,7 @@ class SyslogLogger
   end
 
   # Log level for Logger compatibility.
-  attr_accessor :level
+  attr_accessor :level, :filter
 
   # Fills in variables for Logger compatibility.  If this is the first
   # instance of SyslogLogger, +program_name+ may be set to change the logged
@@ -67,7 +67,8 @@ class SyslogLogger
   # with your syslog daemon.
   #
   # Due to the way syslog works, only one program name may be chosen.
-  def initialize(program_name = 'rails', facility = Syslog::LOG_USER)
+  def initialize(program_name = 'rails', facility = Syslog::LOG_USER, options={})
+    @filter = options[:filter]
     @level = Logger::DEBUG
 
     return if defined? SYSLOG
@@ -78,7 +79,8 @@ class SyslogLogger
   def add(severity, message = nil, progname = nil, &block)
     severity ||= Logger::UNKNOWN
     if severity >= @level
-      prepend = progname ? "[#{progname}] " : ''
+      prepend = progname ? "[#{progname}] " : nil
+      prepend ||= @filter ? "[#{@filter}] " : ''
       message = clean((prepend + (message || block.call)))
       SYSLOG.send LEVEL_LOGGER_MAP[severity], clean(message)
     end
