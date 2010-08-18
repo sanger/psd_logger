@@ -81,8 +81,8 @@ class SyslogLogger
     if severity >= @level
       prepend = progname ? "[#{progname}] " : nil
       prepend ||= @filter ? "[#{@filter}] " : ''
-      message = clean((prepend + (message || block.call)))
-      SYSLOG.send LEVEL_LOGGER_MAP[severity], clean(message)
+      message = clean(message || block.call)
+      SYSLOG.send LEVEL_LOGGER_MAP[severity], prepend + clean(message)
     end
     true
   end
