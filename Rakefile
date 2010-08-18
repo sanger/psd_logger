@@ -1,23 +1,53 @@
-require "rake/gempackagetask"
+require 'rubygems'
+require 'rake'
 
-$dir = File.dirname(__FILE__)
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |gem|
+    gem.name = "scashin133-syslog_logger"
+    gem.summary = %Q{An improved Logger replacement that logs to syslog. It is almost drop-in with a few caveats.}
+    gem.description = %Q{An improved Logger replacement that logs to syslog. It is almost drop-in with a few caveats.}
+    gem.email = "drbrain@segment7.net; cpowell@prylis.com; mboeh@desperance.net; scashin133@gmail.com"
+    gem.homepage = "http://github.com/scashin133/syslog_logger"
+    gem.authors = ["Eric Hodel"," Chris Powell"," Matthew Boeh"," Ian Lesperance"," Dana Danger"," Brian Smith", " Ashley Martens", "Sean Cashin"]
+    gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
+    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+  end
+  Jeweler::GemcutterTasks.new
+rescue LoadError
+  puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
+end
 
-task :default => :package
+require 'rake/testtask'
+Rake::TestTask.new(:test) do |test|
+  test.libs << 'lib' << 'test'
+  test.pattern = 'test/**/test_*.rb'
+  test.verbose = true
+end
 
-desc "Run all tests"
-
-task :test do
-  $: << "#{$dir}/lib"
-  Dir.glob("#{$dir}/test/*.rb").each do |test_rb|
-    require test_rb
+begin
+  require 'rcov/rcovtask'
+  Rcov::RcovTask.new do |test|
+    test.libs << 'test'
+    test.pattern = 'test/**/test_*.rb'
+    test.verbose = true
+  end
+rescue LoadError
+  task :rcov do
+    abort "RCov is not available. In order to run rcov, you must: sudo gem install spicycode-rcov"
   end
 end
 
-spec = eval(IO.read("#{$dir}/syslog_logger.gemspec"))
-gem_pkg_task = Rake::GemPackageTask.new(spec) {|pkg|}
+task :test => :check_dependencies
 
-desc "Install the gem with sudo"
-task :install => :package do
-  system("sudo", "gem", "install",
-    "#{$dir}/#{gem_pkg_task.package_dir}/#{gem_pkg_task.gem_file}")
+task :default => :test
+
+require 'rake/rdoctask'
+Rake::RDocTask.new do |rdoc|
+  version = File.exist?('VERSION') ? File.read('VERSION') : ""
+
+  rdoc.rdoc_dir = 'rdoc'
+  rdoc.title = "syslog_logger #{version}"
+  rdoc.rdoc_files.include('README*')
+  rdoc.rdoc_files.include('lib/**/*.rb')
 end

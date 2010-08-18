@@ -4,9 +4,6 @@ require 'logger'
 class SyslogLogger
   include Logger::Severity
 
-  # The version of SyslogLogger you are using.
-  VERSION = '1.6.1'
-
   # From 'man syslog.h':
   # LOG_EMERG   A panic condition was reported to all processes.
   # LOG_ALERT   A condition that should be corrected immediately.
