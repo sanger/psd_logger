@@ -74,11 +74,12 @@ class SyslogLogger
     self.class.const_set :SYSLOG, Syslog.open(program_name, nil, facility)
   end
 
-  # Almost duplicates Logger#add.  +progname+ is ignored.
+  # Almost duplicates Logger#add.  +progname+ is prepended to the beginning of a message.
   def add(severity, message = nil, progname = nil, &block)
     severity ||= Logger::UNKNOWN
     if severity >= @level
-      message = clean(message || block.call)
+      prepend = progname ? "[#{progname}] " : ''
+      message = clean((prepend + (message || block.call)))
       SYSLOG.send LEVEL_LOGGER_MAP[severity], clean(message)
     end
     true
