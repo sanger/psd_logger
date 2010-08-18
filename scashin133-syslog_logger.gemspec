@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{scashin133-syslog_logger}
-  s.version = "1.6.1"
+  s.version = "1.6.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Eric Hodel", " Chris Powell", " Matthew Boeh", " Ian Lesperance", " Dana Danger", " Brian Smith", " Ashley Martens", "Sean Cashin"]
@@ -17,11 +17,16 @@ Gem::Specification.new do |s|
      "README.rdoc"
   ]
   s.files = [
-    "README.rdoc",
+    ".document",
+     ".gitignore",
+     "LICENSE",
+     "README.rdoc",
      "Rakefile",
      "VERSION",
      "lib/syslog_logger.rb",
      "lib/syslog_logger_env_formatting.rb",
+     "scashin133-syslog_logger.gemspec",
+     "test/helper.rb",
      "test/test_syslog_logger.rb"
   ]
   s.homepage = %q{http://github.com/scashin133/syslog_logger}
@@ -39,12 +44,15 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_development_dependency(%q<thoughtbot-shoulda>, [">= 0"])
+      s.add_development_dependency(%q<shoulda>, [">= 0"])
+      s.add_development_dependency(%q<mocha>, [">= 0"])
     else
-      s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
+      s.add_dependency(%q<shoulda>, [">= 0"])
+      s.add_dependency(%q<mocha>, [">= 0"])
     end
   else
-    s.add_dependency(%q<thoughtbot-shoulda>, [">= 0"])
+    s.add_dependency(%q<shoulda>, [">= 0"])
+    s.add_dependency(%q<mocha>, [">= 0"])
   end
 end
 
