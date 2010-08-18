@@ -10,7 +10,8 @@ begin
     gem.email = "drbrain@segment7.net; cpowell@prylis.com; mboeh@desperance.net; scashin133@gmail.com"
     gem.homepage = "http://github.com/scashin133/syslog_logger"
     gem.authors = ["Eric Hodel"," Chris Powell"," Matthew Boeh"," Ian Lesperance"," Dana Danger"," Brian Smith", " Ashley Martens", "Sean Cashin"]
-    gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
+    gem.add_development_dependency "shoulda", ">= 0"
+    gem.add_development_dependency "mocha", ">= 0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
