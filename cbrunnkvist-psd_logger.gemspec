@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "cbrunnkvist-psd_logger.gemspec",
      "lib/syslog_logger.rb",
      "lib/syslog_logger_env_formatting.rb",
      "test/helper.rb",
