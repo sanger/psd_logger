@@ -4,14 +4,14 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "scashin133-syslog_logger"
-    gem.summary = %Q{An improved Logger replacement that logs to syslog. It is almost drop-in with a few caveats.}
-    gem.description = %Q{An improved Logger replacement that logs to syslog. It is almost drop-in with a few caveats.}
-    gem.email = "drbrain@segment7.net; cpowell@prylis.com; mboeh@desperance.net; scashin133@gmail.com"
-    gem.homepage = "http://github.com/scashin133/syslog_logger"
-    gem.authors = ["Eric Hodel"," Chris Powell"," Matthew Boeh"," Ian Lesperance"," Dana Danger"," Brian Smith", " Ashley Martens", "Sean Cashin"]
-    gem.add_development_dependency "shoulda", ">= 0"
-    gem.add_development_dependency "mocha", ">= 0"
+    gem.name = "cbrunnkvist-psd_logger"
+    gem.summary = %Q{A Sanger/PSD specific fork of the SyslogLogger gem.}
+    gem.description = %Q{An improved Logger replacement that logs to syslog, with custom tweaks added & defaults set. For a generic one please see http://github.com/cpowell/sysloglogger}
+    gem.email = "cb16@sanger.ac.uk"
+    gem.homepage = "http://github.com/cbrunnkvist/psd_logger"
+    gem.authors = ["Conny Brunnkvist"]
+    gem.add_development_dependency "shoulda"
+    gem.add_development_dependency "mocha"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new

@@ -4,14 +4,14 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = %q{scashin133-syslog_logger}
+  s.name = %q{cbrunnkvist-psd_logger}
   s.version = "1.7.3"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Eric Hodel", " Chris Powell", " Matthew Boeh", " Ian Lesperance", " Dana Danger", " Brian Smith", " Ashley Martens", "Sean Cashin"]
-  s.date = %q{2010-08-18}
-  s.description = %q{An improved Logger replacement that logs to syslog. It is almost drop-in with a few caveats.}
-  s.email = %q{drbrain@segment7.net; cpowell@prylis.com; mboeh@desperance.net; scashin133@gmail.com}
+  s.authors = ["Conny Brunnkvist"]
+  s.date = %q{2010-09-03}
+  s.description = %q{An improved Logger replacement that logs to syslog, with custom tweaks added & defaults set. For a generic one please see http://github.com/cpowell/sysloglogger}
+  s.email = %q{cb16@sanger.ac.uk}
   s.extra_rdoc_files = [
     "LICENSE",
      "README.rdoc"
@@ -25,15 +25,14 @@ Gem::Specification.new do |s|
      "VERSION",
      "lib/syslog_logger.rb",
      "lib/syslog_logger_env_formatting.rb",
-     "scashin133-syslog_logger.gemspec",
      "test/helper.rb",
      "test/test_syslog_logger.rb"
   ]
-  s.homepage = %q{http://github.com/scashin133/syslog_logger}
+  s.homepage = %q{http://github.com/cbrunnkvist/psd_logger}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{An improved Logger replacement that logs to syslog. It is almost drop-in with a few caveats.}
+  s.summary = %q{A Sanger/PSD specific fork of the SyslogLogger gem.}
   s.test_files = [
     "test/helper.rb",
      "test/test_syslog_logger.rb"
