@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+require 'getoptlong'
+require 'psd_logger'
+
+opts = GetoptLong.new(
+      [ '--tag', '-t', GetoptLong::OPTIONAL_ARGUMENT ],
+      [ '--prefix', '-p', GetoptLong::OPTIONAL_ARGUMENT ]
+)
+
+tag = 'logger'
+opts.each do |opt_name,opt_value| 
+  if (opt_name == '--tag') && (opt_value != '')
+    tag = opt_value
+  end
+end
+psd_logger = PsdLogger.new(tag)
+
+if ARGV.length == 0
+  begin
+    while line = STDIN.readline
+      psd_logger.error(line)
+    end
+  rescue EOFError
+  end
+else
+  psd_logger.error(msg)
+end
