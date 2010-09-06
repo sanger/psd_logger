@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
 require 'getoptlong'
-require 'rubygems'
-gem 'cbrunnkvist-psd_logger'
 require 'psd_logger'
 
 opts = GetoptLong.new(
