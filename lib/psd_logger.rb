@@ -80,11 +80,15 @@ include Logger::Severity
   # with your syslog daemon.
   #
   # Due to the way syslog works, program name may be set once only (needs to reopen otherwise).
-  def initialize(tag_suffix = '')
+  def initialize(tag_suffix = nil)
     return if defined? SYSLOG
 
-    if tag_suffix == ''
-      tag_suffix = 'logger'
+    if tag_suffix.nil?
+      if defined?(Rails)
+        tag_suffix = 'rails'
+      else
+        tag_suffix = 'logger'
+      end
     end
 
     @level = PsdLogger::INFO
