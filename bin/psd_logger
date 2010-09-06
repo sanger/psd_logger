@@ -4,7 +4,8 @@ require 'psd_logger'
 
 opts = GetoptLong.new(
       [ '--tag', '-t', GetoptLong::OPTIONAL_ARGUMENT ],
-      [ '--prefix', '-p', GetoptLong::OPTIONAL_ARGUMENT ]
+      [ '--prefix', '-p', GetoptLong::OPTIONAL_ARGUMENT ],
+      [ '--help', '-h', GetoptLong::OPTIONAL_ARGUMENT ]
 )
 
 tag = 'logger'
@@ -23,5 +24,5 @@ if ARGV.length == 0
   rescue EOFError
   end
 else
-  psd_logger.error(msg)
+  psd_logger.error(ARGV.join(" "))
 end
