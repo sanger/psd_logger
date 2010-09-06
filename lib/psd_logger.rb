@@ -14,9 +14,6 @@ require 'logger'
 #   RAILS_DEFAULT_LOGGER = PsdLogger.new
 
 class PsdLogger
-  ##
-  # The version of SyslogLogger you are using.
-  VERSION = '0.0.1'
   # From 'man syslog.h':
   # LOG_EMERG   A panic condition was reported to all processes.
   # LOG_ALERT   A condition that should be corrected immediately.
@@ -103,6 +100,9 @@ include Logger::Severity
       prepend = progname ? "[#{progname}] " : nil
       prepend ||= @filter ? "[#{@filter}] " : ''
       message = clean(message || block.call)
+      if defined?(Rails)
+        message = "#{Rails.env}/#{Rails.root.split.last} #{message}"
+      end
       SYSLOG.send LEVEL_LOGGER_MAP[severity], prepend + clean(message)
     end
     true
@@ -133,9 +133,6 @@ include Logger::Severity
     message.strip!
     message.gsub!(/%/, '%%') # syslog(3) freaks on % (printf)
     message.gsub!(/\e\[[^m]*m/, '') # remove useless ansi color codes
-    if defined?(Rails)
-      message = "#{Rails.env}/#{Rails.root.split.last} #{message}"
-    end
     return message
   end
 
