@@ -104,9 +104,10 @@ include Logger::Severity
       prepend = progname ? "[#{progname}] " : nil
       prepend ||= @filter ? "[#{@filter}] " : ''
       message = clean(message || block.call)
-      if defined?(Rails)
-        message = "#{Rails.env}/#{Rails.root.split.last} #{message}"
+      if defined?(Rails) and not @APP_PREFIX
+        @APP_PREFIX = "[#{Deployed::APP_NAME rescue Rails.root.split.last}:#{Rails.env}]"
       end
+      message = "#{@APP_PREFIX} #{message}"
       SYSLOG.send LEVEL_LOGGER_MAP[severity], prepend + clean(message)
     end
     true
