@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{cbrunnkvist-psd_logger}
-  s.version = "0.1.4"
+  s.version = "0.1.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Conny Brunnkvist"]
-  s.date = %q{2010-09-06}
+  s.date = %q{2010-09-07}
   s.default_executable = %q{psd_logger}
   s.description = %q{An improved Logger replacement that logs to syslog, with custom tweaks added & defaults set. For a generic one please see http://github.com/cpowell/sysloglogger}
   s.email = %q{cb16@sanger.ac.uk}
