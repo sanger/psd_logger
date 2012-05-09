@@ -83,7 +83,7 @@ include Logger::Severity
   # Due to the way syslog works, program name may be set once only (needs to reopen otherwise).
   def initialize(deployment_info, tag_suffix = nil)
     @level, @deployment_info = PsdLogger::INFO, deployment_info
-    @app_prefix = "[#{deployment_info.name}:#{deployment_info.environment}:#{deployment_info.version}]"
+    @app_prefix = "[#{deployment_info.name}:#{deployment_info.version}:#{deployment_info.environment}]"
     return if defined? SYSLOG
 
     tag_suffix ||= defined?(Rails) ? 'rails' : 'logger'
