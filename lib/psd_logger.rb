@@ -1,5 +1,6 @@
 require 'syslog'
 require 'logger'
+require 'psd_logger/version'
 
 ##
 # PsdLogger includes code from SeattleRb's SyslogLogger
@@ -80,21 +81,18 @@ include Logger::Severity
   # with your syslog daemon.
   #
   # Due to the way syslog works, program name may be set once only (needs to reopen otherwise).
-  def initialize(tag_suffix = nil)
+  def initialize(deployment_info, tag_suffix = nil)
+    @level, @deployment_info = PsdLogger::INFO, deployment_info
+    @app_prefix = "[#{deployment_info.name}:#{deployment_info.environment}:#{deployment_info.version}]"
     return if defined? SYSLOG
 
-    if tag_suffix.nil?
-      if defined?(Rails)
-        tag_suffix = 'rails'
-      else
-        tag_suffix = 'logger'
-      end
-    end
-
-    @level = PsdLogger::INFO
+    tag_suffix ||= defined?(Rails) ? 'rails' : 'logger'
     self.class.const_set :SYSLOG, Syslog.open("psd_#{tag_suffix}")
     self.debug("PsdLogger.initialize()")
   end
+
+  attr_reader :app_prefix
+  private :app_prefix
 
   ##
   # Almost duplicates Logger#add.  +progname+ is prepended to the beginning of a message.
@@ -104,10 +102,7 @@ include Logger::Severity
       prepend = progname ? "[#{progname}] " : nil
       prepend ||= @filter ? "[#{@filter}] " : ''
       message = clean(message || block.call)
-      if defined?(Rails) and not @APP_PREFIX
-        @APP_PREFIX = "[#{Deployed::APP_NAME rescue Rails.root.split.last}:#{Rails.env}]"
-      end
-      message = "#{@APP_PREFIX} #{message}"
+      message = "#{app_prefix} #{message}"
       SYSLOG.send LEVEL_LOGGER_MAP[severity], prepend + clean(message)
     end
     true

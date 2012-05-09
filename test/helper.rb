@@ -5,7 +5,7 @@ require 'mocha'
 
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 $LOAD_PATH.unshift(File.dirname(__FILE__))
-require 'syslog_logger'
+require 'psd_logger'
 
 class Test::Unit::TestCase
 end
