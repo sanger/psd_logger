@@ -99,11 +99,11 @@ include Logger::Severity
   def add(severity, message = nil, progname = nil, &block)
     severity ||= Logger::UNKNOWN
     if severity >= @level
-      prepend = progname ? "[#{progname}] " : nil
-      prepend ||= @filter ? "[#{@filter}] " : ''
-      message = clean(message || block.call)
-      message = "#{app_prefix} #{message}"
-      SYSLOG.send LEVEL_LOGGER_MAP[severity], prepend + clean(message)
+      prepend = "(thread-#{Thread.current.object_id}) "
+      prepend << "[#{progname}] " unless progname.nil?
+      prepend << "[#{@filter}] "  unless @filter.nil?
+      message = "#{app_prefix} #{clean(message || block.call)}"
+      SYSLOG.send(LEVEL_LOGGER_MAP[severity], prepend + clean(message))
     end
     true
   end
